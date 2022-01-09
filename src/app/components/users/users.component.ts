@@ -18,7 +18,7 @@ export class UsersComponent implements OnInit {
   public selectedValue = this.values[0];
 
   // For list of users
-  public usersListSubs!: Subscription;
+  public usersListSubs: Subscription = new Subscription();
   public usersList: User[] = [];
 
   constructor(private userService: UserService) { }
