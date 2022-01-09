@@ -1,0 +1,13 @@
+.users-list {
+    padding: 0;
+    list-style: none;
+}
+
+.user-item {
+    margin-bottom: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: blanchedalmond;
+}

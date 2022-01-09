@@ -1,0 +1,12 @@
+<select [(ngModel)]="selectedValue" (ngModelChange)="onSelection()">
+  <option *ngFor="let value of values" [ngValue]="value">{{ value.title }}</option>
+</select>
+
+<ul class="users-list">
+  <li class="users-list__user-item user-item" *ngFor="let user of usersList">
+    <span class="user-item__name">Id: {{ user.id }}</span>
+    <span class="user-item__name">Name: {{ user.name }}</span>
+    <span class="user-item__lastname">Lastname: {{ user.lastname }}</span>
+    <span class="user-item__role">Role: {{ user.role }}</span>
+  </li>
+</ul>
