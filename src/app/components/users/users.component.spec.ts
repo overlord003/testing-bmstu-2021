@@ -1,52 +1,60 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule } from '@angular/forms';
-import { UserService } from 'src/app/services/user-service/user.service';
 
+import { FormsModule } from '@angular/forms';
+import { of } from 'rxjs';
 
 import { UsersComponent } from './users.component';
+import { UserService } from 'src/app/services/user-service/user.service';
+import { SortTypes } from 'src/app/models/sort-types.model';
 
-import { of } from 'rxjs';
 
 
 const dummyUsers = [
-  { id: 0, name: 'First', lastname: 'User', role: 'Tester' },
-  { id: 1, name: 'Second', lastname: 'User', role: 'Tester' }
+  { id: 0, name: 'Christina', lastname: 'Lovtsova', role: 'Tester' },
+  { id: 1, name: 'Daria', lastname: 'Zhguleva', role: 'Tester' },
+  { id: 2, name: 'Harry', lastname: 'Potter', role: 'Magician' },
+  { id: 3, name: 'Hermione', lastname: 'Granger', role: 'Magician' },
+  { id: 4, name: 'Ron', lastname: 'Weasley', role: 'Magician' }
 ];
-
-class FakeUserSerivce {
-  getUsers() {
-    return of(dummyUsers);
-  }
-}
 
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
+  let service: UserService;
+  let spy: jasmine.Spy;
 
-  beforeEach(async (() => {
-    let userService: UserService;
-
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule, FormsModule ],
-      declarations: [ UsersComponent ],
+      imports: [
+        HttpClientTestingModule,
+        FormsModule
+      ],
+      declarations: [
+        UsersComponent
+      ],
       providers: [
-        { provide: UserService, useClass: FakeUserSerivce }
+        UserService
       ]
     })
     .compileComponents();
-
-    userService = TestBed.inject(UserService);
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UsersComponent);
-    component = fixture.componentInstance;
+    component = fixture.debugElement.componentInstance;
+    service = fixture.debugElement.injector.get(UserService);
+    spy = spyOn(service, "getUsers").and.returnValue(of(dummyUsers));
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should ngOnInit', () => {
+    component.ngOnInit();
+    expect(component.usersList).toEqual(dummyUsers);
   });
 });

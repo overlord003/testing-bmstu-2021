@@ -43,13 +43,12 @@ export class UserService {
   };
 
   public compareByName(first: User, second: User): number {
-    if (!first || !second) {
-      return 0;
-    }
+    const firstFullName = (first.name + ' ' + first.lastname).toLowerCase();
+    const secondFullName = (second.name + ' ' + second.lastname).toLowerCase();
 
-    if (first.lastname.toLowerCase() > second.lastname.toLowerCase()) {
+    if (firstFullName > secondFullName) {
       return 1;
-    } else if (first.lastname.toLowerCase() < second.lastname.toLowerCase()) {
+    } else if (firstFullName < secondFullName) {
       return -1;
     } else {
       return 0;
@@ -57,10 +56,6 @@ export class UserService {
   }
 
   public compareById(first: User, second: User): number {
-    if (!first || !second) {
-      return 0;
-    }
-
     if (first.id > second.id) {
       return 1;
     } else if (first.id < second.id) {
