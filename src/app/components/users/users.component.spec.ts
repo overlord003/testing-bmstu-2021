@@ -1,13 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 
 import { UsersComponent } from './users.component';
 import { UserService } from 'src/app/services/user-service/user.service';
-import { SortTypes } from 'src/app/models/sort-types.model';
-
 
 
 const dummyUsers = [
@@ -23,7 +22,10 @@ describe('UsersComponent', () => {
   let component: UsersComponent;
   let fixture: ComponentFixture<UsersComponent>;
   let service: UserService;
-  let spy: jasmine.Spy;
+
+  const fakeHttpService = {
+    get: () => of(dummyUsers)
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -35,7 +37,8 @@ describe('UsersComponent', () => {
         UsersComponent
       ],
       providers: [
-        UserService
+        UserService,
+        {provide: HttpClient, useValue: fakeHttpService}
       ]
     })
     .compileComponents();
@@ -45,7 +48,6 @@ describe('UsersComponent', () => {
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.debugElement.componentInstance;
     service = fixture.debugElement.injector.get(UserService);
-    spy = spyOn(service, "getUsers").and.returnValue(of(dummyUsers));
     fixture.detectChanges();
   });
 
