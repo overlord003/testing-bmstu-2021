@@ -43,8 +43,8 @@ export class UserService {
   };
 
   public compareByName(first: User, second: User): number {
-    const firstFullName = (first.name + ' ' + first.lastname).toLowerCase();
-    const secondFullName = (second.name + ' ' + second.lastname).toLowerCase();
+    const firstFullName = (first.lastname + ' ' + first.name).toLowerCase();
+    const secondFullName = (second.lastname + ' ' + second.name).toLowerCase();
 
     if (firstFullName > secondFullName) {
       return 1;

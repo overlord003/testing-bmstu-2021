@@ -13,7 +13,7 @@ export class UsersComponent implements OnInit {
   // For select
   public values = [
     {id: SortTypes.ID, title: "by id"},
-    {id: SortTypes.NAME, title: "by name"}
+    {id: SortTypes.NAME, title: "by fullname"}
   ];
   public selectedValue = this.values[0];
 
